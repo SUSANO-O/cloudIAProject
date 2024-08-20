@@ -4,7 +4,7 @@ permalink: index.html
 layout: home
 ---
 
-# Azure AI Vision Exercises
+# Azure AI 
 
 The following exercises are designed to support the modules on Microsoft Learn.
 
