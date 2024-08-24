@@ -17,27 +17,32 @@ namespace TextAnalyticsExample
         {
             try
             {
+                Console.WriteLine("🔧 Configuración de la aplicación cargando...");
+
                 if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(endpoint))
                 {
-                    throw new InvalidOperationException("API key or endpoint is not set.");
+                    throw new InvalidOperationException("❗ API key o endpoint no están configurados.");
                 }
 
+                Console.WriteLine("🔑 Credenciales obtenidas y cliente inicializando...");
                 var credential = new AzureKeyCredential(apiKey);
                 client = new TextAnalyticsClient(new Uri(endpoint), credential);
+
+                Console.WriteLine("✅ Cliente de Text Analytics inicializado correctamente.");
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine($"ArgumentNullException: {ex.Message}");
+                Console.WriteLine($"🚫 ArgumentNullException: {ex.Message}");
                 throw;
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine($"InvalidOperationException: {ex.Message}");
+                Console.WriteLine($"🚫 InvalidOperationException: {ex.Message}");
                 throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"🚫 Exception: {ex.Message}");
                 throw;
             }
         }
@@ -46,26 +51,30 @@ namespace TextAnalyticsExample
         {
             try
             {
-                string textToAnalyze = "I love the new features of the latest version!";
+                string textToAnalyze = "NO ME GUSTO NADA ESL SERVICIO JAMAS VOLVERE!";
 
-                Console.WriteLine("Analyzing sentiment...");
+                Console.WriteLine($"📝 Texto a analizar: \"{textToAnalyze}\"");
+                Console.WriteLine("🔍 Iniciando análisis de sentimiento...");
+
                 var response = await client.AnalyzeSentimentAsync(textToAnalyze);
+
+                Console.WriteLine("✅ Análisis completado. Procesando resultados...");
 
                 // Obtención de los resultados del análisis
                 var documentSentiment = response.Value;
 
-                Console.WriteLine($"Sentiment: {documentSentiment.Sentiment}");
-                Console.WriteLine($"Positive Score: {documentSentiment.ConfidenceScores.Positive}");
-                Console.WriteLine($"Neutral Score: {documentSentiment.ConfidenceScores.Neutral}");
-                Console.WriteLine($"Negative Score: {documentSentiment.ConfidenceScores.Negative}");
+                Console.WriteLine($"💡 Sentimiento detectado: {documentSentiment.Sentiment}");
+                Console.WriteLine($"👍 Puntaje positivo: {documentSentiment.ConfidenceScores.Positive}");
+                Console.WriteLine($"😐 Puntaje neutral: {documentSentiment.ConfidenceScores.Neutral}");
+                Console.WriteLine($"👎 Puntaje negativo: {documentSentiment.ConfidenceScores.Negative}");
             }
             catch (RequestFailedException ex)
             {
-                Console.WriteLine($"RequestFailedException: {ex.Message}");
+                Console.WriteLine($"🚫 RequestFailedException: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"🚫 Exception: {ex.Message}");
             }
         }
     }
