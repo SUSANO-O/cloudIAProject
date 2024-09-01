@@ -1,0 +1,1 @@
+en este modelo se ejcuta la configuracion para analizar fotos buscando rostros y generanndo una nueva imagen coin los rostris en cuadrados verdes

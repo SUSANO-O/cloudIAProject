@@ -1,1 +1,1 @@
-This folder contains C# code
+traductor

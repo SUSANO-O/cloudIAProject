@@ -51,22 +51,33 @@ namespace TextAnalyticsExample
         {
             try
             {
-                string textToAnalyze = "NO ME GUSTO NADA ESL SERVICIO JAMAS VOLVERE!";
+                // Frases para analizar diferentes sentimientos
+                string[] textsToAnalyze = 
+                {
+                    "Hoy es un día maravilloso, lleno de posibilidades.", // Alegría
+                    "El tiempo revela lo que la prisa oculta.", // Paciencia
+                    "No estoy seguro de cuál es la mejor decisión en este momento.", // Duda
+                    "Me siento perdido y sin dirección en la vida." // Tristeza
+                };
 
-                Console.WriteLine($"📝 Texto a analizar: \"{textToAnalyze}\"");
-                Console.WriteLine("🔍 Iniciando análisis de sentimiento...");
+                foreach (var text in textsToAnalyze)
+                {
+                    Console.WriteLine($"📝 Texto a analizar: \"{text}\"");
+                    Console.WriteLine("🔍 Iniciando análisis de sentimiento...");
 
-                var response = await client.AnalyzeSentimentAsync(textToAnalyze);
+                    var response = await client.AnalyzeSentimentAsync(text);
 
-                Console.WriteLine("✅ Análisis completado. Procesando resultados...");
+                    Console.WriteLine("✅ Análisis completado. Procesando resultados...");
 
-                // Obtención de los resultados del análisis
-                var documentSentiment = response.Value;
+                    // Obtención de los resultados del análisis
+                    var documentSentiment = response.Value;
 
-                Console.WriteLine($"💡 Sentimiento detectado: {documentSentiment.Sentiment}");
-                Console.WriteLine($"👍 Puntaje positivo: {documentSentiment.ConfidenceScores.Positive}");
-                Console.WriteLine($"😐 Puntaje neutral: {documentSentiment.ConfidenceScores.Neutral}");
-                Console.WriteLine($"👎 Puntaje negativo: {documentSentiment.ConfidenceScores.Negative}");
+                    Console.WriteLine($"💡 Sentimiento detectado: {documentSentiment.Sentiment}");
+                    Console.WriteLine($"👍 Puntaje positivo: {documentSentiment.ConfidenceScores.Positive}");
+                    Console.WriteLine($"😐 Puntaje neutral: {documentSentiment.ConfidenceScores.Neutral}");
+                    Console.WriteLine($"👎 Puntaje negativo: {documentSentiment.ConfidenceScores.Negative}");
+                    Console.WriteLine("------------------------------------------------");
+                }
             }
             catch (RequestFailedException ex)
             {

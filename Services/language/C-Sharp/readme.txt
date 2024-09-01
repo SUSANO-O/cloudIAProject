@@ -1,1 +1,1 @@
-This folder contains C# code
+en este modelo se ejcuta la configuracion para analizar diferente tipos de comentarios
